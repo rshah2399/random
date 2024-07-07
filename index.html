@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NamesWheel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">NamesWheel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 pt-2 pb-2">
+                <div class="wheel-container">
+                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <div class="arrow"></div>
+                    <button id="spinButton" class="btn btn-primary mt-2">Spin the Wheel</button>
+                    <div id="result" class="mt-2 d-none"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="entry-tab" data-toggle="tab" href="#entry" role="tab" aria-controls="entry" aria-selected="true">Entry</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="entry" role="tabpanel" aria-labelledby="entry-tab">
+                        <textarea id="names" class="form-control" rows="10" placeholder="Enter names, one per line...">Ali
+Beatriz
+Charles
+Diya
+Eric
+Fatima
+Gabriel
+Hanna</textarea>
+                    </div>
+                    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                        <div class="mt-4">
+                            <h2>Results</h2>
+                            <ul id="resultsList" class="list-group">
+                                <!-- Results will be displayed here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Information Containers -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">What is the wheel spinner for?</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Every day we hear from people who use our website in new ways:
+                            <ul>
+                                <li>Random name picker in the classroom.</li>
+                                <li>Monthly giveaways for retailers.</li>
+                                <li>Random name picker at work.</li>
+                                <li>Deciding what to have for dinner.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">How to use the wheel spinner</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            It's easy: type in your entries in the textbox to the right of the wheel, then click the wheel to spin it and get a random winner.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Is my data private?</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            We are committed to protecting and respecting your privacy and the security of your data. We comply with GDPR, CCPA, and other regulations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Activity in 2024</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Wheel spins: 499,011,811<br>
+                            Hours of spinning: 1,386,144
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Can the wheel be rigged?</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            There is no functionality to determine which entry will win ahead of time. When you click the wheel, it accelerates for a random time and then decelerates to a stop.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Does it use renewable energy?</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            We are proud to share that 100% of the electricity that powers our servers is renewable, and 93% comes from carbon-free energy sources.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Spin Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="resultModalBody">
+                    <!-- Result and remove button will be displayed here -->
+                    <p id="selectedName"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="removeButton" class="btn btn-danger">Remove</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

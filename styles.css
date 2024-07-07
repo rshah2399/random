@@ -1,0 +1,109 @@
+/* Global styles */
+body {
+    background-color: #000 !important;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #343a40 !important; /* dark grey navbar */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #007bff !important; /* blue on hover */
+}
+
+.wheel-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    right: 0%; /* Adjust this percentage based on your layout */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #fff; /* white arrow */
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.dark-mode .card-header {
+    background-color: #343a40;
+    border-bottom: 1px solid #444;
+}
+
+.dark-mode .card {
+    background-color: #343a40;
+    border: 1px solid #444;
+}
+
+.dark-mode .card-body {
+    color: #fff;
+}
+
+.dark-mode .nav-link.active {
+    background-color: #007bff !important;
+}
+
+.dark-mode .nav-tabs {
+    border-bottom: 1px solid #444;
+}
+
+.dark-mode .nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.dark-mode .nav-tabs .nav-link {
+    color: #fff;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.dark-mode .nav-tabs .nav-link:hover {
+    border-color: #444 #444 #007bff;
+}
+
+.dark-mode .modal-content {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.dark-mode .modal-header {
+    border-bottom: 1px solid #444;
+}
+
+.dark-mode .modal-footer {
+    border-top: 1px solid #444;
+}
+
+.dark-mode .modal-title {
+    color: #fff;
+}
+
+/* Additional card styles */
+.card {
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-body {
+    color: #000; /* Adjust text color for body */
+}
