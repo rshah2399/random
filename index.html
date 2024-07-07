@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NamesWheel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-mode">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">NamesWheel</a>
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-cog"></i> NamesWheel
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,11 +24,12 @@
             </ul>
         </div>
     </nav>
+
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-6 pt-2 pb-2">
+            <div class="col-md-6 mb-4">
                 <div class="wheel-container">
-                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <canvas id="wheelCanvas" width="300" height="300"></canvas>
                     <div class="arrow"></div>
                     <button id="spinButton" class="btn btn-primary mt-2">Spin the Wheel</button>
                     <div id="result" class="mt-2 d-none"></div>
@@ -42,7 +46,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="entry" role="tabpanel" aria-labelledby="entry-tab">
-                        <textarea id="names" class="form-control" rows="10" placeholder="Enter names, one per line...">Ali
+                        <textarea id="names" class="form-control mt-3" rows="5" placeholder="Enter names, one per line...">Ali
 Beatriz
 Charles
 Diya
@@ -63,11 +67,13 @@ Hanna</textarea>
             </div>
         </div>
         
-        <!-- New Information Containers -->
+        <!-- Additional Information Containers -->
         <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">What is the wheel spinner for?</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">What is the wheel spinner for?</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             Every day we hear from people who use our website in new ways:
@@ -81,9 +87,11 @@ Hanna</textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">How to use the wheel spinner</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">How to use the wheel spinner</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             It's easy: type in your entries in the textbox to the right of the wheel, then click the wheel to spin it and get a random winner.
@@ -91,9 +99,11 @@ Hanna</textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Is my data private?</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">Is my data private?</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             We are committed to protecting and respecting your privacy and the security of your data. We comply with GDPR, CCPA, and other regulations.
@@ -101,11 +111,11 @@ Hanna</textarea>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Activity in 2024</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">Activity in 2024</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             Wheel spins: 499,011,811<br>
@@ -114,9 +124,11 @@ Hanna</textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Can the wheel be rigged?</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">Can the wheel be rigged?</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             There is no functionality to determine which entry will win ahead of time. When you click the wheel, it accelerates for a random time and then decelerates to a stop.
@@ -124,9 +136,11 @@ Hanna</textarea>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Does it use renewable energy?</div>
+            <div class="col-md-6 mb-4">
+                <div class="card text-white bg-dark">
+                    <div class="card-header">
+                        <h5 class="card-title">Does it use renewable energy?</h5>
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
                             We are proud to share that 100% of the electricity that powers our servers is renewable, and 93% comes from carbon-free energy sources.

@@ -1,4 +1,3 @@
-/* Global styles */
 body {
     background-color: #000 !important;
     color: #fff;
@@ -17,6 +16,16 @@ body {
     color: #007bff !important; /* blue on hover */
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .fas {
+    margin-right: 5px; /* Adjust as needed */
+    font-size: 1.5rem; /* Adjust icon size */
+}
+
 .wheel-container {
     position: relative;
     text-align: center;
@@ -26,23 +35,26 @@ body {
 canvas {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 .arrow {
     position: absolute;
     top: 50%;
-    right: 0%; /* Adjust this percentage based on your layout */
+    right: 0%;
     width: 0;
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 20px solid #fff; /* white arrow */
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg); /* Adjust rotation */
+    display: none;
 }
 
 .dark-mode .card-header {
     background-color: #343a40;
     border-bottom: 1px solid #444;
+    padding: 15px 20px; /* Adjust padding for better spacing */
 }
 
 .dark-mode .card {
@@ -102,8 +114,32 @@ canvas {
 .card-header {
     background-color: #007bff;
     color: #fff;
+    border-bottom: none; /* Remove the existing border-bottom */
+    padding: 15px 20px; /* Adjust padding for better spacing */
 }
 
 .card-body {
     color: #000; /* Adjust text color for body */
+}
+
+.card-title {
+    font-weight: bold; /* Make the card titles bold */
+}
+
+@media (max-width: 992px) {
+    /* Adjustments for medium screens */
+    .wheel-container {
+        margin-bottom: 40px; /* Increase spacing */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Adjustments for small screens */
+    .wheel-container {
+        margin-bottom: 20px; /* Revert margin for smaller screens */
+    }
+    
+    .card {
+        margin-bottom: 30px;
+    }
 }

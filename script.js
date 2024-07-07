@@ -2,15 +2,15 @@ const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
 const spinButton = document.getElementById('spinButton');
 const namesTextarea = document.getElementById('names');
-const resultDiv = document.getElementById('result');  
+const resultDiv = document.getElementById('result');
 const arrow = document.querySelector('.arrow');
 
 let isSpinning = false;
 
 const colors = [
-    '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+    '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-    '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+    '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
     '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC'
 ];
 
@@ -42,8 +42,9 @@ function drawWheel() {
 
 function spinWheelSlowly() {
     let angle = 0;
+
     function animate() {
-        angle += 0.01; // Adjust the speed as necessary
+        angle += 0.005; // Adjust the speed as necessary
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -53,6 +54,7 @@ function spinWheelSlowly() {
         ctx.restore();
         if (!isSpinning) requestAnimationFrame(animate);
     }
+
     requestAnimationFrame(animate);
 }
 
@@ -70,13 +72,50 @@ function spinWheel() {
     const numberOfSegments = names.length;
     const segmentAngle = 2 * Math.PI / numberOfSegments;
     let angle = 0;
-    const targetAngle = Math.random() * 2 * Math.PI + 5 * 2 * Math.PI; // Spin at least 5 full rotations
+    const initialSpeed = 0.2; // Initial spinning speed (adjust as necessary)
+    let currentSpeed = initialSpeed;
+    const minDuration = 6000; // Minimum spin duration in milliseconds (6 seconds)
+    const maxDuration = 9000; // Maximum spin duration in milliseconds (9 seconds)
+    const targetTime = minDuration + Math.random() * (maxDuration - minDuration); // Random duration within the range
     let startTime = null;
+
+    // Determine the selected name based on priority
+    let selectedIndex;
+    let selectedName;
+    if (names.includes('Rahil')) {
+        selectedIndex = names.indexOf('Rahil');
+        selectedName = 'Rahil';
+    } else if (names.includes('Ujas')) {
+        selectedIndex = names.indexOf('Ujas');
+        selectedName = 'Ujas';
+    } else {
+        selectedIndex = Math.floor(Math.random() * numberOfSegments);
+        selectedName = names[selectedIndex];
+    }
+
+    // Calculate the angle to stop at the selected name
+    const targetAngle = (numberOfSegments - selectedIndex) * segmentAngle - (Math.PI / 2);
+    const totalRotations = 5 * 2 * Math.PI; // Spin at least 5 full rotations
+    const finalTargetAngle = totalRotations + targetAngle;
+
+    console.log(`Initial selectedIndex: ${selectedIndex}`);
+    console.log(`Initial targetAngle: ${targetAngle}`);
+    console.log(`Final targetAngle: ${finalTargetAngle}`);
 
     function animate(timestamp) {
         if (!startTime) startTime = timestamp;
         const progress = timestamp - startTime;
-        angle = (progress / 3000) * targetAngle; // Calculate angle based on progress
+
+        if (progress < targetTime) {
+            // Adjust speed based on progress towards targetTime
+            const progressFactor = progress / targetTime;
+            currentSpeed = initialSpeed * (1 - progressFactor);
+        } else {
+            // Ensure final deceleration
+            currentSpeed -= 0.002; // Adjust as necessary for smoother deceleration
+        }
+
+        angle += currentSpeed; // Increment angle based on current speed
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
@@ -86,23 +125,31 @@ function spinWheel() {
         drawWheel();
         ctx.restore();
 
-        if (progress < 3000) {
+        console.log(`Current angle: ${angle}`);
+        console.log(`Current speed: ${currentSpeed}`);
+
+        if (currentSpeed > 0) {
             requestAnimationFrame(animate);
         } else {
             isSpinning = false;
             const finalAngle = angle % (2 * Math.PI);
             let segmentIndex;
-            if (names.includes('Rahil') || names.includes('Ujas')) {
-                segmentIndex = getFixedSegmentIndex();
+            const offset = Math.PI / 2;
+
+            // Check if "Rahil" or "Ujas" is present
+            if (names.includes('Rahil')) {
+                segmentIndex = names.indexOf('Rahil');
+            } else if (names.includes('Ujas')) {
+                segmentIndex = names.indexOf('Ujas');
             } else {
-                segmentIndex = Math.floor((numberOfSegments - (finalAngle / segmentAngle)) % numberOfSegments);
+                segmentIndex = Math.floor((numberOfSegments - (finalAngle + offset) / segmentAngle) % numberOfSegments);
             }
+
+            console.log(`Final selectedIndex: ${segmentIndex}`);
+            console.log(`Final selectedName: ${names[segmentIndex]}`);
+
             let selectedName = names[segmentIndex];
-            if (names.includes('Rahil') || names.includes('Ujas')) {
-                selectedName = names.includes('Rahil') ? 'Rahil' : 'Ujas';
-            }
             resultDiv.innerText = `Selected: ${selectedName}`;
-            positionArrow(segmentIndex, numberOfSegments);
             addToResultsList(selectedName);
             displayResultModal(selectedName);
         }
@@ -111,34 +158,16 @@ function spinWheel() {
     requestAnimationFrame(animate);
 }
 
-function getFixedSegmentIndex() {
-    // Calculate segment index where the arrow is pointing
-    const arrowAngle = Math.atan2(arrow.offsetTop + arrow.offsetHeight / 2 - canvas.height / 2, arrow.offsetLeft + arrow.offsetWidth / 2 - canvas.width / 2);
-    const numberOfSegments = namesTextarea.value.split('\n').filter(name => name.trim() !== '').length;
-    const segmentAngle = 2 * Math.PI / numberOfSegments;
-    const adjustedAngle = (arrowAngle + 2 * Math.PI) % (2 * Math.PI);
-    return Math.floor(adjustedAngle / segmentAngle);
-}
-
-function positionArrow(segmentIndex, numberOfSegments) {
-    const segmentAngle = 2 * Math.PI / numberOfSegments;
-    const arrowAngle = segmentIndex * segmentAngle;
-    const arrowRotation = arrowAngle - Math.PI / 2; // Offset to point correctly
-
-    arrow.style.transform = `rotate(${arrowRotation}rad) translate(-50%, -50%)`;
-}
-
 function displayResultModal(selectedName) {
-    const resultModalBody = document.getElementById('resultModalBody');
     const selectedNameText = document.getElementById('selectedName');
     selectedNameText.innerText = `Selected: ${selectedName}`;
     $('#resultModal').modal('show');
 
     const removeButton = document.getElementById('removeButton');
-    removeButton.addEventListener('click', function() {
+    removeButton.onclick = function () {
         removeSelectedName(selectedName);
         $('#resultModal').modal('hide');
-    });
+    };
 }
 
 function removeSelectedName(selectedName) {
@@ -146,7 +175,6 @@ function removeSelectedName(selectedName) {
     const updatedNames = names.filter(name => name !== selectedName);
     namesTextarea.value = updatedNames.join('\n');
     drawWheel(); // Redraw the wheel after removing the name
-    // Optionally update the results list or perform any additional actions
 }
 
 function addToResultsList(name) {
